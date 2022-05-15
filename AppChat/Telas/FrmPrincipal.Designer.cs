@@ -37,7 +37,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pbExit = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtLog = new System.Windows.Forms.TextBox();
             this.pbAnexo = new System.Windows.Forms.PictureBox();
             this.pbEmojis = new System.Windows.Forms.PictureBox();
             this.pbEnviar = new System.Windows.Forms.PictureBox();
@@ -120,7 +120,7 @@
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.Window;
             this.panel3.Controls.Add(this.pbExit);
-            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.txtLog);
             this.panel3.Controls.Add(this.pbAnexo);
             this.panel3.Controls.Add(this.pbEmojis);
             this.panel3.Controls.Add(this.pbEnviar);
@@ -144,14 +144,15 @@
             this.pbExit.TabStop = false;
             this.pbExit.Click += new System.EventHandler(this.pbExit_Click);
             // 
-            // textBox1
+            // txtLog
             // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.Location = new System.Drawing.Point(6, 26);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(553, 377);
-            this.textBox1.TabIndex = 6;
+            this.txtLog.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.txtLog.Location = new System.Drawing.Point(6, 26);
+            this.txtLog.Multiline = true;
+            this.txtLog.Name = "txtLog";
+            this.txtLog.ReadOnly = true;
+            this.txtLog.Size = new System.Drawing.Size(553, 377);
+            this.txtLog.TabIndex = 6;
             // 
             // pbAnexo
             // 
@@ -257,7 +258,7 @@
         private System.Windows.Forms.PictureBox pbEnviar;
         private System.Windows.Forms.TextBox txtMensagemDigitada;
         public System.Windows.Forms.Label lblLogado;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtLog;
         private System.Windows.Forms.PictureBox pbExit;
     }
 }
