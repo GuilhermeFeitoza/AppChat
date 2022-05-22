@@ -53,6 +53,7 @@
             this.txtIp.Name = "txtIp";
             this.txtIp.Size = new System.Drawing.Size(180, 23);
             this.txtIp.TabIndex = 1;
+            this.txtIp.Text = "192.168.0.213";
             // 
             // btnConectar
             // 
@@ -85,7 +86,7 @@
             this.txtPorta.Name = "txtPorta";
             this.txtPorta.Size = new System.Drawing.Size(96, 23);
             this.txtPorta.TabIndex = 7;
-            this.txtPorta.Text = "2502";
+            this.txtPorta.Text = "8888";
             // 
             // label2
             // 

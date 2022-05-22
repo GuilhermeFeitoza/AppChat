@@ -4,17 +4,20 @@ using System.Net.Sockets;
 using System.Text;
 using System.Collections;
 using System.Net;
+using System.Collections.Generic;
 
 namespace ConsoleApplication1
 {
     class Program
     {
         public static Hashtable clientsList = new Hashtable();
-
+        List<TcpClient> listConnectedClients = new List<TcpClient>();
         static void Main(string[] args)
         {
-            TcpListener serverSocket = new TcpListener(IPAddress.Parse("192.168.0.213"), 8888);
+            Console.WriteLine("Digite o IP desejado");
+            TcpListener serverSocket = new TcpListener(IPAddress.Parse(Console.ReadLine()), 8888);
             TcpClient clientSocket = default(TcpClient);
+            
             int counter = 0;
 
             serverSocket.Start();
@@ -30,7 +33,7 @@ namespace ConsoleApplication1
 
                 NetworkStream networkStream = clientSocket.GetStream();
                 networkStream.Read(bytesFrom, 0, bytesFrom.Length) ;
-                dataFromClient = System.Text.Encoding.ASCII.GetString(bytesFrom);
+                dataFromClient = System.Text.Encoding.UTF8.GetString(bytesFrom);
                 dataFromClient = dataFromClient.Substring(0, dataFromClient.IndexOf("$"));
 
                 clientsList.Add(dataFromClient, clientSocket);
@@ -59,11 +62,11 @@ namespace ConsoleApplication1
 
                 if (flag == true)
                 {
-                    broadcastBytes = Encoding.ASCII.GetBytes(uName + " disse : " + msg);
+                    broadcastBytes = Encoding.UTF8.GetBytes(uName + " disse : " + msg);
                 }
                 else
                 {
-                    broadcastBytes = Encoding.ASCII.GetBytes(msg);
+                    broadcastBytes = Encoding.UTF8.GetBytes(msg);
                 }
 
                 broadcastStream.Write(broadcastBytes, 0, broadcastBytes.Length);
@@ -105,11 +108,12 @@ namespace ConsoleApplication1
                     requestCount = requestCount + 1;
                     NetworkStream networkStream = clientSocket.GetStream();
                     networkStream.Read(bytesFrom, 0, bytesFrom.Length);
-                    dataFromClient = System.Text.Encoding.ASCII.GetString(bytesFrom);
+                    dataFromClient = System.Text.Encoding.UTF8.GetString(bytesFrom);
                     dataFromClient = dataFromClient.Substring(0, dataFromClient.IndexOf("$"));
                     Console.WriteLine("do client - " + clNo + " : " + dataFromClient);
                     rCount = Convert.ToString(requestCount);
-
+                    var teste = clientsList;
+                       
                     Program.broadcast(dataFromClient, clNo, true);
                 }
                 catch (Exception ex)

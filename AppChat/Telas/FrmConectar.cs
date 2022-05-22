@@ -33,7 +33,7 @@ namespace AppChat.Telas
             Telas.FrmPrincipal f = new FrmPrincipal(txtIp.Text,txtPorta.Text,UsuarioLogado);
             f.lblIp.Text = txtIp.Text;
             this.Visible = false;
-            //f.lblLogado.Text = UsuarioLogado;
+            f.lblLogado.Text = UsuarioLogado;
             f.ShowDialog();
         }
     

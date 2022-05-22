@@ -44,6 +44,7 @@
             this.txtMensagemDigitada = new System.Windows.Forms.TextBox();
             this.lblIp = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -62,7 +63,7 @@
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(234, 449);
+            this.panel1.Size = new System.Drawing.Size(191, 449);
             this.panel1.TabIndex = 0;
             // 
             // panel2
@@ -73,14 +74,14 @@
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Location = new System.Drawing.Point(0, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(228, 43);
+            this.panel2.Size = new System.Drawing.Size(202, 40);
             this.panel2.TabIndex = 0;
             // 
             // lblLogado
             // 
             this.lblLogado.AutoSize = true;
             this.lblLogado.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblLogado.Location = new System.Drawing.Point(55, 18);
+            this.lblLogado.Location = new System.Drawing.Point(138, 2);
             this.lblLogado.Name = "lblLogado";
             this.lblLogado.Size = new System.Drawing.Size(39, 17);
             this.lblLogado.TabIndex = 3;
@@ -89,9 +90,9 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::AppChat.Properties.Resources.icons8_check_all_30;
-            this.pictureBox2.Location = new System.Drawing.Point(197, 7);
+            this.pictureBox2.Location = new System.Drawing.Point(25, 19);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(28, 28);
+            this.pictureBox2.Size = new System.Drawing.Size(12, 18);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
@@ -100,7 +101,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(50, 1);
+            this.label1.Location = new System.Drawing.Point(43, 2);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 17);
             this.label1.TabIndex = 1;
@@ -111,7 +112,7 @@
             this.pictureBox1.Image = global::AppChat.Properties.Resources._3837171;
             this.pictureBox1.Location = new System.Drawing.Point(3, 1);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(41, 40);
+            this.pictureBox1.Size = new System.Drawing.Size(34, 33);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -127,16 +128,16 @@
             this.panel3.Controls.Add(this.txtMensagemDigitada);
             this.panel3.Controls.Add(this.lblIp);
             this.panel3.Controls.Add(this.label2);
-            this.panel3.Location = new System.Drawing.Point(236, 0);
+            this.panel3.Location = new System.Drawing.Point(191, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(562, 449);
+            this.panel3.Size = new System.Drawing.Size(597, 449);
             this.panel3.TabIndex = 1;
             // 
             // pbExit
             // 
             this.pbExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbExit.Image = global::AppChat.Properties.Resources.icons8_close_24;
-            this.pbExit.Location = new System.Drawing.Point(534, 0);
+            this.pbExit.Location = new System.Drawing.Point(572, -1);
             this.pbExit.Name = "pbExit";
             this.pbExit.Size = new System.Drawing.Size(25, 24);
             this.pbExit.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -151,25 +152,26 @@
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
-            this.txtLog.Size = new System.Drawing.Size(553, 377);
+            this.txtLog.Size = new System.Drawing.Size(553, 368);
             this.txtLog.TabIndex = 6;
             // 
             // pbAnexo
             // 
             this.pbAnexo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbAnexo.Image = ((System.Drawing.Image)(resources.GetObject("pbAnexo.Image")));
-            this.pbAnexo.Location = new System.Drawing.Point(516, 419);
+            this.pbAnexo.Location = new System.Drawing.Point(525, 405);
             this.pbAnexo.Name = "pbAnexo";
             this.pbAnexo.Size = new System.Drawing.Size(29, 27);
             this.pbAnexo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbAnexo.TabIndex = 5;
             this.pbAnexo.TabStop = false;
+            this.pbAnexo.Click += new System.EventHandler(this.pbAnexo_Click);
             // 
             // pbEmojis
             // 
             this.pbEmojis.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbEmojis.Image = ((System.Drawing.Image)(resources.GetObject("pbEmojis.Image")));
-            this.pbEmojis.Location = new System.Drawing.Point(481, 419);
+            this.pbEmojis.Location = new System.Drawing.Point(494, 405);
             this.pbEmojis.Name = "pbEmojis";
             this.pbEmojis.Size = new System.Drawing.Size(29, 27);
             this.pbEmojis.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -180,7 +182,7 @@
             // 
             this.pbEnviar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbEnviar.Image = global::AppChat.Properties.Resources.icons8_sent_48;
-            this.pbEnviar.Location = new System.Drawing.Point(446, 419);
+            this.pbEnviar.Location = new System.Drawing.Point(464, 405);
             this.pbEnviar.Name = "pbEnviar";
             this.pbEnviar.Size = new System.Drawing.Size(29, 27);
             this.pbEnviar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -191,11 +193,11 @@
             // txtMensagemDigitada
             // 
             this.txtMensagemDigitada.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtMensagemDigitada.Location = new System.Drawing.Point(4, 409);
+            this.txtMensagemDigitada.Location = new System.Drawing.Point(4, 400);
             this.txtMensagemDigitada.Multiline = true;
             this.txtMensagemDigitada.Name = "txtMensagemDigitada";
             this.txtMensagemDigitada.PlaceholderText = "Digite a mensagem";
-            this.txtMensagemDigitada.Size = new System.Drawing.Size(558, 40);
+            this.txtMensagemDigitada.Size = new System.Drawing.Size(555, 38);
             this.txtMensagemDigitada.TabIndex = 2;
             this.txtMensagemDigitada.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMensagem_KeyDown);
             // 
@@ -221,7 +223,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(789, 450);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -260,5 +262,6 @@
         public System.Windows.Forms.Label lblLogado;
         private System.Windows.Forms.TextBox txtLog;
         private System.Windows.Forms.PictureBox pbExit;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
     }
 }
