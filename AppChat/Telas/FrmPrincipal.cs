@@ -111,7 +111,7 @@ namespace AppChat.Telas
                 using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
 
-                    openFileDialog.InitialDirectory = "c:\\";
+                    openFileDialog.InitialDirectory = "C:\\";
                     openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                     openFileDialog.FilterIndex = 2;
                     openFileDialog.RestoreDirectory = true;
@@ -124,7 +124,7 @@ namespace AppChat.Telas
                         var fileStream = openFileDialog.OpenFile();
                         reader = new StreamReader(fileStream);
                         fileContent = reader.ReadToEnd();
-                        byte[] outStream = System.Text.Encoding.UTF8.GetBytes(txtMensagemDigitada.Text + "$");
+                        byte[] outStream = System.Text.Encoding.UTF8.GetBytes(fileContent);
                         serverStream.Write(outStream, 0, outStream.Length);
 
                     }
