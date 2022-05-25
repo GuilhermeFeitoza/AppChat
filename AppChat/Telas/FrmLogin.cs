@@ -30,13 +30,14 @@ namespace AppChat
         private void btnEntrar_Click(object sender, EventArgs e)
         {
             Telas.FrmConectar f= new Telas.FrmConectar();
-            f.UsuarioLogado = txtUsuario.Text;
-            this.Visible = false;
+
             DAO.Conexao c = new DAO.Conexao();
             DAO.Login l = new DAO.Login();
             bool existe = l.Logar(c.CriarConexao(), txtUsuario.Text.Trim(), txtSenha.Text.Trim());
             if (existe)
             {
+                f.UsuarioLogado = txtUsuario.Text;
+                this.Visible = false;
                 f.ShowDialog();
             }
             else {
@@ -44,6 +45,12 @@ namespace AppChat
                 MessageBox.Show("Usuário/Senha invalido!!");
             }
 
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Telas.FrmUsuario  f = new Telas.FrmUsuario();
+            f.ShowDialog();
         }
     }
 }
