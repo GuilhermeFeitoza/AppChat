@@ -24,28 +24,38 @@ namespace AppChat.Telas
         string readData = null;
         public FrmPrincipal(string ip, string porta, string usuario)
         {
-            Ip = ip;
-            Porta = porta;
-            usuarioLogado = usuario;
+            try
+            {
+                Ip = ip;
+                Porta = porta;
+                usuarioLogado = usuario;
 
 
 
-            // se não esta conectando aguarda a conexão
+                // se não esta conectando aguarda a conexão
 
-            InitializeComponent();
-            readData = "Conectado ao servidor de chat...";
-            msg();
+                InitializeComponent();
+                readData = "Conectado ao servidor de chat...";
+                msg();
 
 
-            clientSocket.Connect(IPAddress.Parse(Ip), int.Parse(Porta));
-            serverStream = clientSocket.GetStream();
+                clientSocket.Connect(IPAddress.Parse(Ip), int.Parse(Porta));
+                serverStream = clientSocket.GetStream();
 
-            byte[] outStream = System.Text.Encoding.UTF8.GetBytes(usuarioLogado + "$");
-            serverStream.Write(outStream, 0, outStream.Length);
-            serverStream.Flush();
+                byte[] outStream = System.Text.Encoding.UTF8.GetBytes(usuarioLogado + "$");
+                serverStream.Write(outStream, 0, outStream.Length);
+                serverStream.Flush();
 
-            Thread ctThread = new Thread(getMessage);
-            ctThread.Start();
+                Thread ctThread = new Thread(getMessage);
+                ctThread.Start();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+               // throw ex;
+            }
+           
 
         }
 
@@ -55,6 +65,11 @@ namespace AppChat.Telas
             serverStream.Write(outStream, 0, outStream.Length);
             serverStream.Flush();
             txtMensagemDigitada.Clear();
+            if (hasAttachement) {
+                byte[] outStream2 = System.Text.Encoding.UTF8.GetBytes(fileContent);
+                serverStream.Write(outStream2, 0, outStream2.Length);
+                serverStream.Flush();
+            }
 
         }
 
@@ -69,7 +84,14 @@ namespace AppChat.Telas
                 serverStream.Write(outStream, 0, outStream.Length);
                 serverStream.Flush();
                 txtMensagemDigitada.Clear();
+                if (hasAttachement)
+                {
+                    byte[] outStream2 = System.Text.Encoding.UTF8.GetBytes(fileContent);
+                    serverStream.Write(outStream2, 0, outStream2.Length);
+                    serverStream.Flush();
+                }
 
+                hasAttachement = false;
             }
         }
 
@@ -100,13 +122,14 @@ namespace AppChat.Telas
                 txtLog.Text = txtLog.Text + Environment.NewLine + " >> " + readData;
         }
         StreamReader reader;
+        bool hasAttachement;
+        string filePath;
+        string fileContent;
+
         private void pbAnexo_Click(object sender, EventArgs e)
         {
             try
             {
-
-                var fileContent = string.Empty;
-                var filePath = string.Empty;
 
                 using (OpenFileDialog openFileDialog = new OpenFileDialog())
                 {
@@ -124,8 +147,8 @@ namespace AppChat.Telas
                         var fileStream = openFileDialog.OpenFile();
                         reader = new StreamReader(fileStream);
                         fileContent = reader.ReadToEnd();
-                        byte[] outStream = System.Text.Encoding.UTF8.GetBytes(fileContent);
-                        serverStream.Write(outStream, 0, outStream.Length);
+                        txtMensagemDigitada.Text = filePath;
+                        hasAttachement = true;
 
                     }
                 }
@@ -138,7 +161,7 @@ namespace AppChat.Telas
             }
 
         }
-
+  
         private void label3_Click(object sender, EventArgs e)
         {
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections;
 using System.Net;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ConsoleApplication1
 {
@@ -17,7 +18,7 @@ namespace ConsoleApplication1
             Console.WriteLine("Digite o IP desejado");
             TcpListener serverSocket = new TcpListener(IPAddress.Parse(Console.ReadLine()), 8888);
             TcpClient clientSocket = default(TcpClient);
-            
+
             int counter = 0;
 
             serverSocket.Start();
@@ -32,7 +33,7 @@ namespace ConsoleApplication1
                 string dataFromClient = null;
 
                 NetworkStream networkStream = clientSocket.GetStream();
-                networkStream.Read(bytesFrom, 0, bytesFrom.Length) ;
+                networkStream.Read(bytesFrom, 0, bytesFrom.Length);
                 dataFromClient = System.Text.Encoding.UTF8.GetString(bytesFrom);
                 dataFromClient = dataFromClient.Substring(0, dataFromClient.IndexOf("$"));
 
@@ -109,12 +110,25 @@ namespace ConsoleApplication1
                     NetworkStream networkStream = clientSocket.GetStream();
                     networkStream.Read(bytesFrom, 0, bytesFrom.Length);
                     dataFromClient = System.Text.Encoding.UTF8.GetString(bytesFrom);
-                    dataFromClient = dataFromClient.Substring(0, dataFromClient.IndexOf("$"));
-                    Console.WriteLine("do client - " + clNo + " : " + dataFromClient);
-                    rCount = Convert.ToString(requestCount);
-                    var teste = clientsList;
-                       
-                    Program.broadcast(dataFromClient, clNo, true);
+                    if (dataFromClient.Contains("$"))
+                    {
+                        dataFromClient = dataFromClient.Substring(0, dataFromClient.IndexOf("$"));
+
+                        Console.WriteLine("do client - " + clNo + " : " + dataFromClient);
+                        rCount = Convert.ToString(requestCount);
+                        var teste = clientsList;
+
+                        Program.broadcast(dataFromClient, clNo, true);
+                    }
+                    else {
+
+                       // FileStream Fs = new FileStream(@"C://", FileAccess.Write, 2);
+                     
+                            //Fs.Write(dataFromClient, 0);
+                            //totalrecbytes += RecBytes;
+                        
+                        Program.broadcast(dataFromClient, clNo, true);
+                    }
                 }
                 catch (Exception ex)
                 {
