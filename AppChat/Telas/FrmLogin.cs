@@ -52,5 +52,13 @@ namespace AppChat
             Telas.FrmUsuario  f = new Telas.FrmUsuario();
             f.ShowDialog();
         }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Telas.FrmConectar f = new Telas.FrmConectar();
+            f.UsuarioLogado = "Convidado "+ DateTime.Now.Second.ToString();
+            this.Visible = false;
+            f.ShowDialog();
+        }
     }
 }

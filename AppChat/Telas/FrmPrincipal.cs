@@ -61,15 +61,7 @@ namespace AppChat.Telas
 
         private void pbEnviar_Click(object sender, EventArgs e)
         {
-            byte[] outStream = System.Text.Encoding.UTF8.GetBytes(txtMensagemDigitada.Text + "$");
-            serverStream.Write(outStream, 0, outStream.Length);
-            serverStream.Flush();
-            txtMensagemDigitada.Clear();
-            if (hasAttachement) {
-                byte[] outStream2 = System.Text.Encoding.UTF8.GetBytes(fileContent);
-                serverStream.Write(outStream2, 0, outStream2.Length);
-                serverStream.Flush();
-            }
+            EnviarMensagem();
 
         }
 
@@ -79,20 +71,26 @@ namespace AppChat.Telas
 
             if (e.KeyCode == Keys.Enter)
             {
+                EnviarMensagem();
 
+            }
+        }
+
+        private void EnviarMensagem()
+        {
                 byte[] outStream = System.Text.Encoding.UTF8.GetBytes(txtMensagemDigitada.Text + "$");
                 serverStream.Write(outStream, 0, outStream.Length);
                 serverStream.Flush();
                 txtMensagemDigitada.Clear();
                 if (hasAttachement)
                 {
-                    byte[] outStream2 = System.Text.Encoding.UTF8.GetBytes(fileContent);
+                    byte[] outStream2 = System.Text.Encoding.UTF8.GetBytes(fileContent + "|");
                     serverStream.Write(outStream2, 0, outStream2.Length);
                     serverStream.Flush();
                 }
 
                 hasAttachement = false;
-            }
+           
         }
 
         private void pbExit_Click(object sender, EventArgs e)
@@ -114,12 +112,39 @@ namespace AppChat.Telas
                 msg();
             }
         }
+        static string  nomeArquivo = "";
         private void msg()
         {
+     
             if (this.InvokeRequired)
                 this.Invoke(new MethodInvoker(msg));
-            else
-                txtLog.Text = txtLog.Text + Environment.NewLine + " >> " + readData;
+            else {
+                if (readData.Contains(":\\"))
+                {
+                    nomeArquivo = readData;
+
+                }
+                if (!readData.Contains("|"))
+                {
+                 
+                    txtLog.Text = txtLog.Text + Environment.NewLine + " >> " + readData;
+                }
+                else
+                {
+                    //string caminho = txtLog.Text.Substring(txtLog.Text.LastIndexOf(":"), txtLog.Text.Length);
+                   
+                    string nomeTratado = nomeArquivo.Substring(nomeArquivo.IndexOf(":") +1, nomeArquivo.LastIndexOf("."));
+                    string path = Application.StartupPath  + Path.GetFileName(nomeTratado);
+                    using (FileStream fs = File.Create(path.Replace("\0", ""))) 
+                    {
+                        byte[] info = new UTF8Encoding(true).GetBytes(readData.Substring(0, readData.IndexOf("|")));
+                        // Add some information to the file.
+                        fs.Write(info, 0, info.Length);
+                    }
+                   txtLog.Text = txtLog.Text + Environment.NewLine + "Arquivo salvo em :" + path;
+                }
+                  
+            }
         }
         StreamReader reader;
         bool hasAttachement;
@@ -147,6 +172,7 @@ namespace AppChat.Telas
                         var fileStream = openFileDialog.OpenFile();
                         reader = new StreamReader(fileStream);
                         fileContent = reader.ReadToEnd();
+                        reader.Close();
                         txtMensagemDigitada.Text = filePath;
                         hasAttachement = true;
 

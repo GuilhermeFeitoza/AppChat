@@ -31,7 +31,7 @@ namespace ConsoleApplication1
 
                 byte[] bytesFrom = new byte[10025];
                 string dataFromClient = null;
-
+                
                 NetworkStream networkStream = clientSocket.GetStream();
                 networkStream.Read(bytesFrom, 0, bytesFrom.Length);
                 dataFromClient = System.Text.Encoding.UTF8.GetString(bytesFrom);
@@ -39,7 +39,7 @@ namespace ConsoleApplication1
 
                 clientsList.Add(dataFromClient, clientSocket);
 
-                broadcast(dataFromClient + " Entrou ", dataFromClient, false);
+                broadcast(dataFromClient + " Entrou ", dataFromClient, false,false);
 
                 Console.WriteLine(dataFromClient + " Entrou na sala ");
                 handleClinet client = new handleClinet();
@@ -52,7 +52,7 @@ namespace ConsoleApplication1
             Console.ReadLine();
         }
 
-        public static void broadcast(string msg, string uName, bool flag)
+        public static void broadcast(string msg, string uName, bool flag ,bool arquivo)
         {
             foreach (DictionaryEntry Item in clientsList)
             {
@@ -63,12 +63,22 @@ namespace ConsoleApplication1
 
                 if (flag == true)
                 {
-                    broadcastBytes = Encoding.UTF8.GetBytes(uName + " disse : " + msg);
+                    if (msg.Contains(":") && msg.Contains("\\"))
+                    {
+                        broadcastBytes = Encoding.UTF8.GetBytes(uName + " Enviou o arquivo : " + msg);
+
+                    }
+                    else {
+
+                        broadcastBytes = Encoding.UTF8.GetBytes(uName + " disse : " + msg);
+                    }
+                  
                 }
                 else
                 {
                     broadcastBytes = Encoding.UTF8.GetBytes(msg);
                 }
+           
 
                 broadcastStream.Write(broadcastBytes, 0, broadcastBytes.Length);
                 broadcastStream.Flush();
@@ -116,18 +126,23 @@ namespace ConsoleApplication1
 
                         Console.WriteLine("do client - " + clNo + " : " + dataFromClient);
                         rCount = Convert.ToString(requestCount);
-                        var teste = clientsList;
-
-                        Program.broadcast(dataFromClient, clNo, true);
+                        Program.broadcast(dataFromClient, clNo, true,false);
                     }
-                    else {
+                    else if (dataFromClient.Contains("|")) {
 
-                       // FileStream Fs = new FileStream(@"C://", FileAccess.Write, 2);
-                     
-                            //Fs.Write(dataFromClient, 0);
-                            //totalrecbytes += RecBytes;
-                        
-                        Program.broadcast(dataFromClient, clNo, true);
+                        //dataFromClient = dataFromClient.Substring(0, dataFromClient.IndexOf("|"));
+
+                        Console.WriteLine("arquivo recebido - " + clNo + " : " + dataFromClient);
+                        rCount = Convert.ToString(requestCount);
+                        Program.broadcast(dataFromClient, clNo, false,true);
+
+
+                    }
+                    else
+                    {
+
+
+                        Program.broadcast(dataFromClient, clNo, true,false);
                     }
                 }
                 catch (Exception ex)
